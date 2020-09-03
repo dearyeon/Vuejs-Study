@@ -37,3 +37,16 @@ export default {
     }
 };
 </script>
+
+<style lang="scss">
+@import "@/assets/style/_mixins.scss";
+.add {
+  position: relative;
+  max-width: 720px;
+  margin: 0 auto;
+  
+  .main-input {
+    @include animation(fadeShow, 800ms, 1, 900ms);
+  }
+}
+</style>
