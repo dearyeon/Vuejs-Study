@@ -30,7 +30,7 @@ export default {
                 date: `${getDate().date} ${getDate().week}`,
                 time: getDate().time
                 };
-                localStorage.setItem(this.newTodoItem, value);
+                localStorage.setItem(this.newTodoItem, JSON.stringify(value));
                 this.clearInput();
             }
         }

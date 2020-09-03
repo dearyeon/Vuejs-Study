@@ -5,7 +5,7 @@
     <TodoInput />
     <TodoController />
     <TodoList />
-    <TodoFooter />
+    <TodoFooter /> 
   </div>
 </template>
 
