@@ -24,13 +24,15 @@ export default {
     },
     methods: {
         addTodoItem() {
-            if(this.newTodoItem !== "") {
-                this.$emit("addItem", this.newTodoItem);
+            if (this.newTodoItem !== "") {
+                var value = {
+                item: this.newTodoItem,
+                date: `${getDate().date} ${getDate().week}`,
+                time: getDate().time
+                };
+                localStorage.setItem(this.newTodoItem, value);
                 this.clearInput();
             }
-        },
-        clearInput() {
-            this.newTodoItem = "";
         }
     }
 };

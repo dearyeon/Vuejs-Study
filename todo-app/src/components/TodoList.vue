@@ -10,12 +10,10 @@
             <label v-bind:for="todoItem.item" class="list_label">
                 <p class="list_text">{{ todoItem.item }}</p>
             </label>
-            <div class="list_ringt">
+            <p class="list_date">{{ todoItem.date }}</p> <!-- 빼야하는가? -->
               <button class="list_delete" v-on:click="removeTodo(todoItem, index)">
                 <div class="blind">Delete</div>
               </button>
-              <p class="list_date">{{ todoItem.date }}</p> <!-- 빼야하는가? -->
-            </div>
         </li>
     </ul>
 </template>
@@ -39,12 +37,14 @@ export default {
       }
     }
   },
-  methods: {
+  methods: { 
     toggleComplete(todoItem) {
-      this.$emit("toggleItem", todoItem);
+      todoItem.completed = !todoItem.completed;
+      localStorage.setItem(todoItem.item, JSON.stringify(todoItem));
     },
     removeTodo(todoItem, index) {
-      this.$emit("removeItem", todoItem, index);
+      localStorage.removeItem(todoItem.item);
+      this.todoItems.splice(index, 1);
     }
   }
 }

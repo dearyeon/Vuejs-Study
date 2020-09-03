@@ -1,21 +1,16 @@
 <template>
-    <div class="title">
-        <p class="title_message">{{ message }}</p>
-        <p class="title_task">
-            You've got
-            <span class="title_task-count">
-              <em class="title_task-left"> {{ propsdata.left }}</em>
-              <em v-if="propsdata.total" class="title_task-total">&nbsp;/ {{ propsdata.total }}</em>
-            </span>
-            <span class="title_task-bottom">tasks today !</span>
-            <span class="title_task-info"></span>
-        </p>
-    </div>
+  <div class="title">
+    <p class="title__message">{{ message }}</p>
+    <p class="title__task">
+      You've got
+      <span class="title__task-total">{{ taskTotal }}</span> tasks today.
+    </p>
+  </div>
 </template>
 
 <script>
 export default {
-  props: ["propsdata"],
+  //props: ["propsdata"],
     data() {
         return {
             message: "Hello, YeonJi.",

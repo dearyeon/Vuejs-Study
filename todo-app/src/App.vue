@@ -1,14 +1,10 @@
 <template>
   <div id="app">
     <TodoHeader />
-    <TodoTitle v-bind:propsdata="checkCount" />
+    <TodoTitle />
     <TodoInput />
-    <TodoController v-on:sortItem="sortAllItem" v-on:clearAll="clearAllItem"/>
-    <TodoList 
-      v-bind:propsdata="todoItems" 
-      v-on:removeItem="removeOneItem" 
-      v-on:toggleItem="toggleOneItem"
-    />
+    <TodoController />
+    <TodoList />
     <TodoFooter />
   </div>
 </template>
@@ -20,9 +16,19 @@ import TodoInput from "./components/TodoInput";
 import TodoController from "./components/TodoController";
 import TodoList from "./components/TodoList";
 import TodoFooter from "./components/TodoFooter";
-//import getData from "./assets/commonJS/getData.js";
+//import getDate from "./assets/commonJS/getDate.js";
 
 export default {
+  name: "App",
+  components: {
+    TodoHeader,
+    TodoTitle,
+    TodoInput,
+    TodoController,
+    TodoList,
+    TodoFooter
+  }
+  /*
   data() {
     return {
       todoItems: []
@@ -101,15 +107,6 @@ export default {
   },
   mouted() {
     this.sortTodoOldest();
-  },
-  name: "App",
-  components: {
-    TodoHeader,
-    TodoTitle,
-    TodoInput,
-    TodoController,
-    TodoList,
-    TodoFooter
-  }
+  }*/
 };
 </script>
