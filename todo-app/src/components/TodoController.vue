@@ -1,5 +1,6 @@
 <template>
     <div class="controller">
+        <button class="clear" v-on:click="clearTodo">Clear All</button>
         <div class="select">
             <label for="order">Order</label>
             <select name="order" id="order" class="selectbox">
@@ -12,3 +13,13 @@
         <button class="clear">Clear All</button>
     </div>
 </template>
+
+<script>
+export default {
+    methods: {
+        clearTodo() {
+            this.$emit("clearAll");
+        }
+    }
+}
+</script>
