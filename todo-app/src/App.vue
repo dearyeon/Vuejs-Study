@@ -14,6 +14,7 @@
   </div>
 </template>
 
+
 <script>
 import TodoHeader from "./components/TodoHeader";
 import TodoTitle from "./components/TodoTitle";
@@ -123,7 +124,7 @@ export default {
   width: 100%;
   min-height: 43.6rem;
   padding: 0 $padding 4.5rem;
-  background-image: linear-gradient(145deg, #3770cc 20%, #ce91c9 84%);
+  background-image: linear-gradient(45deg, #3770cc 20%, #ce91c9 84%);
 }
 
 .body {
