@@ -2,16 +2,21 @@
   <div id="app">
     <div class="top">
       <TodoHeader />
-        <TodoTitle v-bind:propsdata="checkCount" />
+      <div v-if="userName">
+        <TodoTitle v-bind:propCount="checkCount" v-bind:propName="userName" />
         <TodoInput v-on:addItem="addOneItem" />
-        <TodoHello />
+      </div>
+      <div v-else>
+        <TodoHello v-on:addName="addUserName" />
+      </div>
     </div>
     <div class="body">
         <TodoController v-on:clearAll="clearAllItem" v-on:sortItem="sortAllItem" />
         <TodoList 
-          v-bind:propsdata="todoItems" 
+          v-bind:propItems="todoItems" 
           v-on:removeItem="removeOneItem" 
           v-on:toggleItem="toggleOneItem"
+          v-bind:propEmpty="isEmpty"
         />
       <TodoFooter />
     </div>
@@ -26,6 +31,7 @@ import TodoInput from "./components/TodoInput";
 import TodoController from "./components/TodoController";
 import TodoList from "./components/TodoList";
 import TodoFooter from "./components/TodoFooter";
+import TodoHello from "./components//TodoHello";
 import getDate from "./assets/commonJS/getDate.js";
 
 export default {
@@ -36,11 +42,13 @@ export default {
     TodoInput,
     TodoController,
     TodoList,
-    TodoFooter
+    TodoFooter,
+    TodoHello
   },
   data() {
     return {
-      todoItems: []
+      todoItems: [],
+      userName: ""
     };
   },
   methods: {
@@ -82,12 +90,18 @@ export default {
       } else if (selectedSort.value === "date-asc") {
         this.sortTodoOldest();
       }
+    },
+    addUserName(userName) {
+      localStorage.setItem("userName", userName);
+      this.userName = userName;
     }
   },
   created() {
+    this.userName = localStorage.getItem("userName");
+
     if(localStorage.length > 0) {
       for(let i = 0; i < localStorage.length; i++) {
-        if(localStorage.key(i) !== "loglevel:webpack-dev-server") {
+        if(localStorage.key(i) !== "userName") {
           this.todoItems.push(
             JSON.parse(localStorage.getItem(localStorage.key(i)))
           );
@@ -112,9 +126,12 @@ export default {
         left: checkLeftItems()
       };
       return count;
+    },
+    isEmpty() {
+      return this.todoItems.length <= 0 ? true : false;
     }
   },
-  mouted() {
+  mounted() {
     this.sortTodoOldest();
   }
 };

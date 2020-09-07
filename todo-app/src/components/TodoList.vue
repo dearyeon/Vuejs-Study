@@ -1,6 +1,6 @@
 <template>
-    <ul class="list">
-        <li class="list__item" v-for="(todoItem, index) in propsdata" v-bind:key="todoItem.item">
+    <ul class="list" v-bind:class="listempty">
+        <li class="list__item" v-for="(todoItem, index) in propItems" v-bind:key="todoItem.item">
             <input 
               type="checkbox" 
               v-bind:id="todoItem.item"
@@ -20,7 +20,7 @@
 
 <script>
 export default {
-  props: ["propsdata"],
+  props: ["propItems", "propEmpty"],
   data() {
     return {
       todoItems: []
@@ -43,6 +43,11 @@ export default {
     },
     toggleComplete(todoItem) {
       this.$emit("toggleItem", todoItem);
+    }
+  },
+  computed: {
+    listempty() {
+      return this.propEmpty ? "list--empty" : null;
     }
   }
 }
