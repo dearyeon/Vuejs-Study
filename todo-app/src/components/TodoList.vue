@@ -1,17 +1,17 @@
 <template>
     <ul class="list">
-        <li class="list_item" v-for="(todoItem, index) in todoItems" v-bind:key="todoItem.item">
+        <li class="list__item" v-for="(todoItem, index) in propsdata" v-bind:key="todoItem.item">
             <input 
               type="checkbox" 
               v-bind:id="todoItem.item"
               v-bind:checked="todoItem.completed === true"
               v-on:change="toggleComplete(todoItem)"
             />
-            <label v-bind:for="todoItem.item" class="list_label">
-              <p class="list_text">{{ todoItem.item }}</p>
+            <label v-bind:for="todoItem.item" class="list__label">
+              <p class="list__text">{{ todoItem.item }}</p>
             </label>
-            <p class="list_date">{{ todoItem.date }}</p> <!-- 빼야하는가? -->
-              <button class="list_delete" v-on:click="removeTodo(todoItem, index)">
+            <p class="list__date">{{ todoItem.date }}</p> <!-- 빼야하는가? -->
+              <button class="list__delete" v-on:click="removeTodo(todoItem, index)">
                 <div class="blind">Delete</div>
               </button>
         </li>
@@ -20,7 +20,7 @@
 
 <script>
 export default {
-  //props: ["propsdata"],
+  props: ["propsdata"],
   data() {
     return {
       todoItems: []
@@ -38,17 +38,17 @@ export default {
     }
   },
   methods: { 
-    toggleComplete(todoItem) {
-      todoItem.completed = !todoItem.completed;
-      localStorage.setItem(todoItem.item, JSON.stringify(todoItem));
-    },
     removeTodo(todoItem, index) {
-      localStorage.removeItem(todoItem.item);
-      this.todoItems.splice(index, 1);
+      this.$emit("removeItem", todoItem, index);
+    },
+    toggleComplete(todoItem) {
+      this.$emit("toggleItem", todoItem);
     }
   }
 }
 </script>
+
+
 
 <style lang="scss">
 @import "@/assets/style/_mixins.scss";
