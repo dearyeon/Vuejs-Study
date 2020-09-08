@@ -1,5 +1,8 @@
 <template>
   <div id="app">
+    <Modal v-show="showModal" v-on:close="showModal = false">
+      <template v-slot:modal-text>{{ modalText }}</template>
+    </Modal>
     <div class="top">
       <TodoHeader />
       <div v-if="userName">
@@ -31,7 +34,8 @@ import TodoInput from "./components/TodoInput";
 import TodoController from "./components/TodoController";
 import TodoList from "./components/TodoList";
 import TodoFooter from "./components/TodoFooter";
-import TodoHello from "./components//TodoHello";
+import TodoHello from "./components/TodoHello";
+import Modal from "./components/common/Modal";
 import getDate from "./assets/commonJS/getDate.js";
 
 export default {
@@ -43,16 +47,34 @@ export default {
     TodoController,
     TodoList,
     TodoFooter,
-    TodoHello
+    TodoHello,
+    Modal
   },
   data() {
     return {
       todoItems: [],
-      userName: ""
+      userName: "",
+      showModal: false,
+      modalText: ""
     };
   },
   methods: {
     addOneItem(todoItem) {
+      // 빈 내용일 경우
+      if(todoItem === "") {
+        this.showModal = !this.showModal;
+        this.modalText = "The form is empty. Please enter your task.";
+        return false;
+      }
+      // 중복되는 내용일 경우
+      for(let i = 0; i < this.todoItems.length; i++) {
+        if(this.todoItems[i].item === todoItem) {
+          this.showModal = !this.showModal;
+          this.modalText = "I think you've already had the task.";
+          return false;
+        }
+      }
+      // 저장할 정보
       var value = {
         item: todoItem,
         date: `${getDate().date} ${getDate().week}`,
