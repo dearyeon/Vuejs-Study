@@ -1,5 +1,5 @@
 <template>
-    <ul class="list" v-bind:class="listempty">
+    <transition-group name="list" tag="ul" class="list" v-bind:class="listempty">
         <li class="list__item" v-for="(todoItem, index) in propItems" v-bind:key="todoItem.item">
             <input 
               type="checkbox" 
@@ -15,7 +15,7 @@
                 <div class="blind">Delete</div>
               </button>
         </li>
-    </ul>
+    </transition-group>
 </template>
 
 <script>
