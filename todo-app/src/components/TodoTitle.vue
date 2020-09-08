@@ -1,7 +1,7 @@
 <template>
   <div class="title">
     <p class="title__text">
-      <span class="title__message">{{ message }},</span>
+      <span class="title__message">Good {{ message }},</span>
       <span
         v-on:key.enter="handleName"
         v-on:blur="handleBlur"
